@@ -9,9 +9,20 @@
 #let tsv(path) = csv(path, delimiter: "	")
 
 #set text(font: ("NimbusSanL", "Nimbus Sans"))
+#show raw.where(block: false): it => box(
+  fill: theme.colors.surface2.rgb.transparentize(10%),
+  outset: (top: .3em, bottom: .3em, left: .2em, right: .2em),
+  radius: .2em,
+  it,
+)
 
 #show quote: it => block(fill: theme.colors.surface1.rgb, inset: 1em, radius: 1em, it)
+
 #let state = worksheet(theme: frappe)
+#let tp(body) = {
+  set text(font: "Fairfax Pona HD")
+  body
+}
 
 #text_block(state)[
   == Introduction
@@ -24,18 +35,16 @@
   == Li
   The first particle we'll learn is `li`. It separates the subject from the action. A simple sentence is structured like
   #align(center, box(inset: 1em, radius: 1em, fill: theme.colors.surface1.rgb)[
-    *subject* `li` *action* *test*
+    subject `li` action
   ])
 
   In Sitelen Pona (the writing system we'll be learning), `li` looks like an arrow:
 
   #align(center, quote[
-    #show: it => align(horizon + center, it)
     #set text(size: 15pt)
     subject
-    #text(font: "Fairfax Pona HD")[
-      li
-    ]
+    #tp[li]
+    #h(.2em)
     action
   ])
 
