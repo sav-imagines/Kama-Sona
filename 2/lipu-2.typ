@@ -1,6 +1,6 @@
 #import "@preview/catppuccin:1.1.0": catppuccin, frappe, latte
 #import "@local/language_worksheet:0.0.1": (
-  conjugation_table, notice, questions, text_block, word_list, word_order_exercise, word_symbol_list, worksheet,
+  conjugation_table, notice, quiz, text_block, word_list, word_order_exercise, word_symbol_list, worksheet,
 )
 
 #set page(columns: 2, margin: 1.2cm)
@@ -13,7 +13,6 @@
 #show heading.where(level: 1): set text(size: 20pt)
 #show text.where(lang: "en"): set text(font: "Atkinson Hyperlegible")
 #show text.where(lang: "tok"): set text(font: "Fairfax Pona HD", size: 10.8pt)
-// #set text(lang: "tok")
 
 #show raw.where(block: false): it => box(pad(left: 2pt, right: 2pt, box(
   fill: theme.colors.surface2.rgb.transparentize(10%),
@@ -34,11 +33,19 @@
   body
 }
 
-#set page(header: [
-  #set heading(bookmarked: false)
-  #grid(columns: (1fr, 1fr, 1fr), align: (left, center, right))[= o kama sona!
-  ][ #tp[= o kama sona!] ][ #tp[= lipu tu] ]
-])
+#let top = [
+  #show text: strong
+  #set text(size: 20pt)
+  #grid(columns: (1fr, 1fr, 1fr), align: (left, center, right))[
+    o kama sona!
+  ][
+    #text(font: "Fairfax Pona HD")[ o kama sona! ]
+  ][
+    #text(font: "Fairfax Pona HD")[ lipu tu ]
+  ]
+]
+
+#set page(header: top)
 
 #notice(state)[ Simpler #tp[li] (`li`)][When `mi` or `sina` is the full subject, it is unnecessary to use `li`.]
 
@@ -64,8 +71,8 @@
   ]
 ]
 
-#word_symbol_list(tsv("old-words.tsv").map(x => (en(x.at(0)), tp[#x.at(0)], en(x.at(1)))), state)
-#colbreak()
 #word_symbol_list(tsv("words.tsv").map(x => (en(x.at(0)), tp[#x.at(0)], en(x.at(1)))), state)
-#let sentences = tsv("sentences.tsv").map(x => (tp(x.at(0)), [#x.at(0)]))
-#questions(state, [Translation exercise], sentences)
+#let sentences = tsv("sentences_tok.tsv").map(x => (tp(x.at(0)), x.at(0)))
+#quiz(state, [Translation exercise], sentences)
+#let sentences = tsv("sentences_en.tsv").map(x => (x.at(0), x.at(0)))
+#quiz(state, [Translation exercise], sentences)
