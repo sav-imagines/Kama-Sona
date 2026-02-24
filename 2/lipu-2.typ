@@ -11,7 +11,7 @@
 #let tsv(path) = csv(path, delimiter: "	")
 
 #show heading.where(level: 1): set text(size: 20pt)
-#show text.where(lang: "en"): set text(font: "Atkinson Hyperlegible")
+#set text(font: "Atkinson Hyperlegible")
 #show text.where(lang: "tok"): set text(font: "Fairfax Pona HD", size: 10.8pt)
 
 #show raw.where(block: false): it => box(pad(left: 2pt, right: 2pt, box(
